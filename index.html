@@ -22,7 +22,6 @@
     body {
       margin: 0;
       font-family: 'Orbitron', sans-serif;
-      background: radial-gradient(circle at top left, #0f172a, #020617);
       background: var(--bg);
       color: #e2e8f0;
       min-height: 100vh;
@@ -41,7 +40,6 @@
     header {
       text-align: center;
       padding: 4rem 1rem 3rem;
-      background: linear-gradient(135deg, #2563eb, #1e40af);
       background: linear-gradient(120deg, rgba(37, 99, 235, 0.8), rgba(14, 165, 233, 0.7));
       box-shadow: 0 25px 50px rgba(14, 165, 233, 0.18);
       border-bottom: 1px solid var(--border);
@@ -54,7 +52,6 @@
       text-shadow: 0 5px 25px rgba(15, 23, 42, 0.4);
     }
     header p {
-      color: #cbd5e1;
       color: #e0f2fe;
       font-size: 1.2rem;
     }
@@ -62,8 +59,6 @@
       display: flex;
       justify-content: center;
       gap: 2rem;
-      background-color: #1e293b;
-      padding: 1rem;
       background: rgba(15, 23, 42, 0.6);
       padding: 1rem 1.25rem;
       position: sticky;
@@ -73,7 +68,6 @@
       border-bottom: 1px solid var(--border);
     }
     nav a {
-      color: #60a5fa;
       color: var(--accent);
       text-decoration: none;
       font-weight: bold;
@@ -100,7 +94,6 @@
       box-shadow: var(--glow);
     }
     nav a:hover {
-      color: #93c5fd;
       color: var(--accent-strong);
     }
     nav a:hover::after {
@@ -111,10 +104,8 @@
     }
 
     .content-wrapper {
-      max-width: 1000px;
       max-width: 1100px;
       margin: 3rem auto;
-      padding: 0 1.5rem;
       padding: 0 1.5rem 2rem;
       min-height: 400px;
       position: relative;
@@ -190,11 +181,6 @@
     }
 
     .card {
-      background-color: #1e293b;
-      padding: 1rem;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(100, 149, 237, 0.2);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
       position: relative;
       overflow: hidden;
       padding: 1.25rem;
@@ -217,8 +203,6 @@
 
     .card:hover,
     .card:active {
-      transform: scale(1.05);
-      box-shadow: 0 0 25px rgba(100, 149, 237, 0.4);
       transform: translateY(-6px) scale(1.02);
       box-shadow: 0 25px 45px rgba(96, 165, 250, 0.2);
       border-color: rgba(96, 165, 250, 0.4);
@@ -231,7 +215,6 @@
     }
 
     .card h3 {
-      color: #93c5fd;
       color: #bfdbfe;
       margin-top: 0;
       position: relative;
@@ -254,6 +237,8 @@
     a:hover {
       color: #e0f2fe;
     }
+root@5a5e705cd63b:/workspace/114514# sed -n '240,480p' index.html
+    }
 
     a::after {
       content: '';
@@ -274,14 +259,11 @@
     }
 
     footer {
-      background-color: #0f172a;
       background-color: #0b1224;
       color: #94a3b8;
       text-align: center;
-      padding: 2rem 1rem;
       padding: 2.2rem 1rem;
       margin-top: 3rem;
-      font-size: 0.9rem;
       font-size: 0.95rem;
       border-top: 1px solid var(--border);
       box-shadow: 0 -10px 30px rgba(15, 23, 42, 0.4);
@@ -310,7 +292,24 @@
     <a onclick="switchView('contact')">联系</a>
   </nav>
 
-@@ -158,42 +312,52 @@
+  <div class="content-wrapper">
+    <div class="view active" id="home">
+      <h2>欢迎来到 World Box</h2>
+      <p>这是一个致力于跑路科技UI的平台。点击上方导航，查看更多内容。</p>
+    </div>
+
+    <div class="view" id="about">
+      <h2>下载UI</h2>
+      <p>🔗 123云盘: <a href="https://www.123912.com/s/9rccTd-3vAlh" style="color:#60a5fa">World Box UI</a></p>
+    </div>
+
+    <div class="view" id="projects">
+      <h2>项目展示</h2>
+      <div class="projects">
+        <div class="card">
+          <h3>🧠 World Box</h3>
+          <p>跑路柯鸡精美UI，支持多语言,拥有专属扩展。</p>
+        </div>
         <div class="card">
           <h3>🌐 暂无</h3>
           <p>敬请期待</p>
@@ -360,6 +359,6 @@
 
     window.addEventListener('DOMContentLoaded', () => switchView('home'));
   </script>
-  
+
 </body>
 </html>
