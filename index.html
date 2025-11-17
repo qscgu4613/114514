@@ -287,106 +287,12 @@
       box-shadow: 0 -10px 30px rgba(15, 23, 42, 0.4);
     }
 
-    @media (max-width: 900px) {
-      header {
-        padding: 3rem 1rem 2.5rem;
-      }
-
-      header h1 {
-        font-size: 2.4rem;
-      }
-
-      header p {
-        font-size: 1.05rem;
-      }
-
-      nav {
-        flex-wrap: wrap;
-        gap: 0.85rem 1.25rem;
-        padding: 0.85rem 1rem;
-      }
-
-      nav a {
-        padding: 0.35rem 0.1rem;
-      }
-
-      .content-wrapper {
-        margin: 2.25rem auto;
-        padding: 0 1.1rem 1.5rem;
-      }
-
-      .view {
-        padding: 1.5rem 1.25rem;
-      }
-
-      .projects {
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 1.25rem;
-      }
-    }
-
     @media (max-width: 600px) {
-      body {
-        background: #020617;
-      }
-
-      header {
-        padding: 2.5rem 1rem 2rem;
-      }
-
       header h1 {
         font-size: 2rem;
-        letter-spacing: 1px;
       }
-
-      header p {
-        line-height: 1.5;
-      }
-
       nav {
         flex-direction: column;
-        align-items: stretch;
-        position: sticky;
-        top: 0;
-      }
-
-      nav a {
-        text-align: center;
-        padding: 0.55rem 0.4rem;
-        border-radius: 10px;
-        background: rgba(15, 23, 42, 0.65);
-        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.25);
-      }
-
-      nav a::after {
-        display: none;
-      }
-
-      .content-wrapper {
-        padding: 0 0.75rem 1.25rem;
-        margin: 1.8rem auto;
-      }
-
-      .content-wrapper::before {
-        border-radius: 18px;
-      }
-
-      .view {
-        padding: 1.25rem 1rem;
-        border-radius: 16px;
-      }
-
-      .projects {
-        grid-template-columns: 1fr;
-      }
-
-      .card {
-        padding: 1.1rem;
-      }
-
-      footer {
-        padding: 1.8rem 1rem;
-        margin-top: 2.2rem;
       }
     }
   </style>
@@ -404,15 +310,7 @@
     <a onclick="switchView('contact')">联系</a>
   </nav>
 
-  <div class="content-wrapper">
-    <div class="view active" id="home">
-      <h2>欢迎来到 World Box</h2>
-      <p>这是一个致力于跑路科技UI的平台。点击上方导航，查看更多内容。</p>
-    </div>
-
-    <div class="view" id="about">
-      <h2>下载UI</h2>
-@@ -158,42 +406,52 @@
+@@ -158,42 +312,52 @@
         <div class="card">
           <h3>🌐 暂无</h3>
           <p>敬请期待</p>
