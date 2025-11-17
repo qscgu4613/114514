@@ -16,12 +16,6 @@
       --accent: #60a5fa;
       --accent-strong: #93c5fd;
     }
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-    }
-
     html {
       scroll-behavior: smooth;
     }
@@ -34,12 +28,6 @@
       min-height: 100vh;
       position: relative;
       overflow-x: hidden;
-      padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0)
-        env(safe-area-inset-bottom, 0) env(safe-area-inset-left, 0);
-      -webkit-tap-highlight-color: transparent;
-      user-select: none;
-      -webkit-user-select: none;
-      -webkit-touch-callout: none;
     }
     body::before {
       content: '';
@@ -83,7 +71,6 @@
       z-index: 999;
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
-      scroll-margin-top: env(safe-area-inset-top, 0);
     }
     nav a {
       color: #60a5fa;
@@ -95,8 +82,6 @@
       padding-bottom: 0.3rem;
       letter-spacing: 0.5px;
       transition: color 0.3s ease;
-      -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation;
     }
     nav a.active {
       color: var(--accent-strong);
@@ -343,7 +328,6 @@
     @media (max-width: 600px) {
       body {
         background: #020617;
-        scroll-padding-top: calc(3.5rem + env(safe-area-inset-top, 0));
       }
 
       header {
@@ -361,25 +345,17 @@
 
       nav {
         flex-direction: column;
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 0.6rem;
         align-items: stretch;
         position: sticky;
-        top: env(safe-area-inset-top, 0);
-        margin: 0 0.75rem;
-        width: calc(100% - 1.5rem);
-        padding-top: env(safe-area-inset-top, 0);
+        top: 0;
       }
 
       nav a {
         text-align: center;
-        padding: 0.5rem 0.55rem;
-        border-radius: 12px;
-        background: rgba(15, 23, 42, 0.7);
+        padding: 0.55rem 0.4rem;
+        border-radius: 10px;
+        background: rgba(15, 23, 42, 0.65);
         box-shadow: 0 10px 25px rgba(15, 23, 42, 0.25);
-        width: 100%;
-        font-size: 0.95rem;
       }
 
       nav a::after {
@@ -387,8 +363,8 @@
       }
 
       .content-wrapper {
-        padding: calc(1rem + env(safe-area-inset-top, 0)) 0.95rem 1.6rem;
-        margin: calc(2.65rem + env(safe-area-inset-top, 0)) auto 1.9rem;
+        padding: 0 0.75rem 1.25rem;
+        margin: 1.8rem auto;
       }
 
       .content-wrapper::before {
@@ -398,7 +374,6 @@
       .view {
         padding: 1.25rem 1rem;
         border-radius: 16px;
-        scroll-margin-top: calc(4.5rem + env(safe-area-inset-top, 0));
       }
 
       .projects {
@@ -437,7 +412,7 @@
 
     <div class="view" id="about">
       <h2>下载UI</h2>
-@@ -158,42 +430,52 @@
+@@ -158,42 +406,52 @@
         <div class="card">
           <h3>🌐 暂无</h3>
           <p>敬请期待</p>
