@@ -92,6 +92,7 @@
       transition: color 0.3s ease;
       -webkit-tap-highlight-color: transparent;
       touch-action: manipulation;
+      outline: none;
     }
     nav a.active {
       color: var(--accent-strong);
@@ -117,6 +118,11 @@
     }
     nav a.active::after {
       transform: scaleX(1);
+    }
+    nav a:focus,
+    nav a:focus-visible {
+      outline: none;
+      box-shadow: none;
     }
 
     .content-wrapper {
@@ -324,7 +330,7 @@
     @media (max-width: 600px) {
       body {
         background: #020617;
-        scroll-padding-top: calc(3.5rem + env(safe-area-inset-top, 0));
+        scroll-padding-top: calc(4.25rem + env(safe-area-inset-top, 0));
       }
 
       header {
@@ -350,6 +356,7 @@
         margin: 0 0.75rem;
         width: calc(100% - 1.5rem);
         padding-top: env(safe-area-inset-top, 0);
+        padding-bottom: 0.2rem;
       }
 
       nav a {
@@ -367,8 +374,8 @@
       }
 
       .content-wrapper {
-        padding: calc(1rem + env(safe-area-inset-top, 0)) 0.95rem 1.6rem;
-        margin: calc(2.65rem + env(safe-area-inset-top, 0)) auto 1.9rem;
+        padding: calc(1.1rem + env(safe-area-inset-top, 0)) 0.95rem 1.85rem;
+        margin: calc(3.35rem + env(safe-area-inset-top, 0)) auto 2.2rem;
       }
 
       .content-wrapper::before {
@@ -378,7 +385,8 @@
       .view {
         padding: 1.25rem 1rem;
         border-radius: 16px;
-        scroll-margin-top: calc(4.5rem + env(safe-area-inset-top, 0));
+        scroll-margin-top: calc(5.25rem + env(safe-area-inset-top, 0));
+        margin-top: 0.35rem;
       }
 
       .projects {
