@@ -36,6 +36,10 @@
       overflow-x: hidden;
       padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0)
         env(safe-area-inset-bottom, 0) env(safe-area-inset-left, 0);
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
     }
     body::before {
       content: '';
@@ -86,6 +90,8 @@
       padding-bottom: 0.3rem;
       letter-spacing: 0.5px;
       transition: color 0.3s ease;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
     nav a.active {
       color: var(--accent-strong);
@@ -361,8 +367,8 @@
       }
 
       .content-wrapper {
-        padding: 0 0.95rem 1.45rem;
-        margin: 2.15rem auto 1.8rem;
+        padding: calc(1rem + env(safe-area-inset-top, 0)) 0.95rem 1.6rem;
+        margin: calc(2.65rem + env(safe-area-inset-top, 0)) auto 1.9rem;
       }
 
       .content-wrapper::before {
@@ -372,6 +378,7 @@
       .view {
         padding: 1.25rem 1rem;
         border-radius: 16px;
+        scroll-margin-top: calc(4.5rem + env(safe-area-inset-top, 0));
       }
 
       .projects {
