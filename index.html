@@ -34,6 +34,8 @@
       min-height: 100vh;
       position: relative;
       overflow-x: hidden;
+      padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0)
+        env(safe-area-inset-bottom, 0) env(safe-area-inset-left, 0);
     }
     body::before {
       content: '';
@@ -73,6 +75,7 @@
       z-index: 999;
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
+      scroll-margin-top: env(safe-area-inset-top, 0);
     }
     nav a {
       color: var(--accent);
@@ -315,6 +318,7 @@
     @media (max-width: 600px) {
       body {
         background: #020617;
+        scroll-padding-top: calc(3.5rem + env(safe-area-inset-top, 0));
       }
 
       header {
@@ -336,9 +340,10 @@
         gap: 0.6rem;
         align-items: stretch;
         position: sticky;
-        top: 0;
+        top: env(safe-area-inset-top, 0);
         margin: 0 0.75rem;
         width: calc(100% - 1.5rem);
+        padding-top: env(safe-area-inset-top, 0);
       }
 
       nav a {
