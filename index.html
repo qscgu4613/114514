@@ -299,10 +299,28 @@ root@5a5e705cd63b:/workspace/114514# sed -n '240,480p' index.html
     </div>
 
     <div class="view" id="about">
-      <h2>下载UI</h2>
-      <p>🔗 123云盘: <a href="https://www.123912.com/s/9rccTd-3vAlh" style="color:#60a5fa">World Box UI</a></p>
-      <h2>下载JS</h2>
-      <a href="WorldBox.js" download>
+<h2>下载UI</h2>
+<a href="https://www.123912.com/s/9rccTd-3vAlh" target="_blank" rel="noopener">
+  <button style="
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    transition: 0.2s;
+    margin-bottom: 12px;
+  "
+  onmouseover="this.style.opacity=0.85"
+  onmouseout="this.style.opacity=1">
+    ☁ 前往 123云盘下载 UI
+  </button>
+</a>
+
+<h2>下载JS</h2>
+<a href="WorldBox.js" download>
   <button style="
     background: linear-gradient(135deg, #3b82f6, #2563eb);
     color: white;
@@ -319,6 +337,7 @@ root@5a5e705cd63b:/workspace/114514# sed -n '240,480p' index.html
     ⬇ 下载 World Box JS
   </button>
 </a>
+
       
     </div>
 
