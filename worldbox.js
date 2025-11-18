@@ -1,9 +1,4 @@
-/* load_snapshot_LLL.js
- * 自包含：把 LLL.bin 的二进制直接内嵌为 Base64，并在加载时调用 loadSnapshot(ArrayBuffer)
- * 只依赖平台提供的 loadSnapshot 和 clientMessage（用于提示，可删除）。
- */
 
-// ---- Base64 数据（由 LLL.bin 转码） ----
 var BIN_B64_PARTS = [
   "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",
@@ -76,8 +71,6 @@ var BIN_B64_PARTS = [
   "ez8jOsrEuyL6fauSm+55zU8Vn1kLb9C3Nkyz89b1Sc9WJSW/6EpmPQTFRsCVVVzZiRIPLe4GPCYqRjA5x43qqseEXYGh7TMyYqXcWokqiwVbqKwnt2aK075QLubLRa5cNJeLReu0iJAIyT2yF646O4LrwiUPL3uVdkB2GMasvzjmXbRnE1mCh+yZSOYh72rFHvKePdnGPOR9cJHC71nnz9mIsMyAfRqIzECp80AKM1DhkQG/RwZUjwwYHhkIemRAYxmYs3eGl9zFZ/fEVqbCeZkqNTaLPeBOYrlWCqrMUrlYLrc98jc8Pa+8ibxP0PPqtj2vHnhevczz6kvROLoqNoo8LzVqjFtvtteUWEMkCdEZdwIqI+ITIqBkRJPaZXdMtbzfi8Xt9/SnptHv7RW9yf7pM6zYxsV+nC+aK9h29KkcajmQut9yqrwRhSVFjigMUvF+6iuohpDw4dQjW0G1J4SWwONH8PjRVGaiyH/vqWQDVo3Oad8ffHwjVlY3YoYDGCA7+fuc+mGVoXh+4sHvc2N1uzN8l4/KeomYHVbewG0yavzm25Zw4dkL9p/PGjnLmNXjlz2EI6XlHLXZ//+LTJea+Garld2f2a9UyMN829oWEAgmyk7esIqtVSNKj47b7DGMObcwjV53YMQoNTDiLINwtk5cO+lwYCN7JUuBIVNQ/Eo5zPfRbMqxcv2GZ65FrZqngJPN0XmNMt5n7Mm0xeIdK9NGwF5uErLL+cHLPIrfdh8N2k8+jJqPnnEejCFxeujEJC9EZuwLUmipZfpRJFCMVLqF7Y7silzlcT4+cNLCjsU8X1Yd+xhelleT7ZWcVIdKFpoq31SwCbcgC/1CjApxqP1xhha5LqtiPiwWw2IuLBbCdHDLml+ky8Qtv9gK2NMUYyn+0VAhROzfKxep17Os3iOZfMqbVBELieHMODelYsgncj4x6BOz9mhkFonKpcT3xHeFpoqgKloM0WaIJkP0aaIxIA6DYjsoDoLiKCRmNbFinKrzav63gs9gpR7X",
   "82o2EkbO15qZOOF5NffVwpSjg9zHroG/gwbmHlsN7CeMbX9rxmPj5MNrIOdoYPpj18AhNDD/2GogmTTWRGtm6lFqYNrRwMzHroH/Aw0sPLYaaEoa66YGcifUgDB7si4hOoVIRowddXLYDbzDZmQX+r8="
 ].join("");
-
-// ---- 纯原生 Base64 解码到 Uint8Array ----
 var _b64tab = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 function b64decodeToU8(str) {
   str = String(str).replace(/[^A-Za-z0-9\+\/\=]/g, '');
@@ -98,16 +91,12 @@ function b64decodeToU8(str) {
   }
   return new Uint8Array(out);
 }
-
-// ---- 保证 ArrayBuffer 紧凑（避免 subarray 偏移问题） ----
 function toArrayBuffer(u8) {
   if (u8.byteOffset === 0 && u8.byteLength === u8.buffer.byteLength) return u8.buffer;
   var ab = new ArrayBuffer(u8.byteLength);
   new Uint8Array(ab).set(u8);
   return ab;
 }
-
-// ---- 还原并调用你的 API ----
     var u8 = b64decodeToU8(BIN_B64_PARTS);
     var ab = toArrayBuffer(u8);
     // 第二个参数 code 可选；如果需要进入特定函数，可把 "" 改成你的字符串
