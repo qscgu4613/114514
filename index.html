@@ -363,6 +363,29 @@ root@5a5e705cd63b:/workspace/114514# sed -n '240,480p' index.html
       <h2>联系方式</h2>
       <p>📧 Email: WhiteXiaoLing@gmail.com</p>
       🔗 Discord: <a href="https://discord.gg/jzPsBGmRyk" style="color:#60a5fa">WorldBox</a></p>
+      <div id="guestbook" style="max-width: 600px; margin: 40px auto;">
+  <h2>留言板</h2>
+
+  <div style="margin-bottom: 8px;">
+    <input id="gb-nickname" placeholder="昵称（可留空，默认匿名）"
+           style="width: 100%; padding: 6px;" />
+  </div>
+
+  <div style="margin-bottom: 8px;">
+    <textarea id="gb-content" placeholder="说点什么吧..."
+              rows="3" style="width: 100%; padding: 6px;"></textarea>
+  </div>
+
+  <button onclick="gbSendMessage()" style="padding: 6px 12px;">
+    提交留言
+  </button>
+
+  <div id="gb-status" style="margin-top: 8px; color: #888;"></div>
+
+  <h3 style="margin-top: 20px;">所有留言</h3>
+  <div id="gb-list"></div>
+</div>
+
     </div>
   </div>
 
@@ -371,6 +394,98 @@ root@5a5e705cd63b:/workspace/114514# sed -n '240,480p' index.html
   </footer>
 
   <script>
+  const GB_API_BASE = "https://api.vostin.cn";
+
+  function gbEscapeHtml(str) {
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+  }
+
+  function gbLoadMessages() {
+    var statusEl = document.getElementById("gb-status");
+    statusEl.textContent = "正在加载留言...";
+
+    fetch(GB_API_BASE + "/api/messages")
+      .then(function (res) {
+        return res.json();
+      })
+      .then(function (data) {
+        var listEl = document.getElementById("gb-list");
+
+        if (!Array.isArray(data) || data.length === 0) {
+          listEl.innerHTML = "<p>还没有留言，快来抢沙发 ~</p>";
+          statusEl.textContent = "";
+          return;
+        }
+
+        var html = "";
+        for (var i = 0; i < data.length; i++) {
+          var m = data[i];
+          var timeText = m.created_at
+            ? new Date(m.created_at).toLocaleString()
+            : "";
+
+          html +=
+            '<div style="border:1px solid #ddd;padding:8px;margin:6px 0;border-radius:4px;">' +
+              "<div><strong>" + gbEscapeHtml(m.nickname || "匿名") + "</strong>" +
+              ' <small style="color:#888;">' + gbEscapeHtml(timeText) + "</small></div>" +
+              "<div>" + gbEscapeHtml(m.content || "") + "</div>" +
+            "</div>";
+        }
+
+        listEl.innerHTML = html;
+        statusEl.textContent = "";
+      })
+      .catch(function (err) {
+        console.error(err);
+        statusEl.textContent = "加载失败，请稍后重试";
+      });
+  }
+
+  function gbSendMessage() {
+    var nicknameInput = document.getElementById("gb-nickname");
+    var contentInput = document.getElementById("gb-content");
+    var statusEl = document.getElementById("gb-status");
+
+    var nickname = nicknameInput.value;
+    var content = contentInput.value;
+
+    if (!content || content.trim() === "") {
+      alert("内容不能为空");
+      return;
+    }
+
+    statusEl.textContent = "正在提交...";
+
+    fetch(GB_API_BASE + "/api/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nickname: nickname, content: content })
+    })
+      .then(function (res) {
+        return res.json();
+      })
+      .then(function (data) {
+        if (data && data.error) {
+          alert(data.error);
+          statusEl.textContent = "";
+          return;
+        }
+
+
+        contentInput.value = "";
+        gbLoadMessages();
+      })
+      .catch(function (err) {
+        console.error(err);
+        alert("提交失败，请稍后再试");
+        statusEl.textContent = "";
+      });
+  }
+
+  window.addEventListener("load", gbLoadMessages);
     function switchView(viewId) {
       const views = document.querySelectorAll('.view');
       const navLinks = document.querySelectorAll('nav a');
