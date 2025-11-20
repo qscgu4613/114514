@@ -6,6 +6,65 @@
   <title>World Box - 科技世界的起点</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
   <style>
+    /* 留言板容器 */
+.guestbook-box {
+  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 30px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: 0.3s ease;
+}
+
+/* 输入框 + 文本域 */
+.guestbook-box input,
+.guestbook-box textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 14px;
+  transition: 0.2s ease;
+  outline: none;
+}
+
+.guestbook-box input:focus,
+.guestbook-box textarea:focus {
+  border: 1px solid rgba(0, 174, 255, 0.7);
+  box-shadow: 0 0 8px rgba(0, 174, 255, 0.3);
+}
+
+/* 提交按钮 */
+.guestbook-box button {
+  background: linear-gradient(145deg, #007bff, #00c6ff);
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.guestbook-box button:hover {
+  box-shadow: 0 0 10px rgba(0, 174, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.guestbook-box button:active {
+  transform: scale(0.97);
+}
+
+/* 每条留言 */
+.gb-message {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 12px 16
+
     :root {
       --bg: radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.25), transparent 35%),
         radial-gradient(circle at 80% 0%, rgba(14, 165, 233, 0.2), transparent 30%),
@@ -363,26 +422,31 @@ root@5a5e705cd63b:/workspace/114514# sed -n '240,480p' index.html
       <h2>联系方式</h2>
       <p>📧 Email: WhiteXiaoLing@gmail.com</p>
       🔗 Discord: <a href="https://discord.gg/jzPsBGmRyk" style="color:#60a5fa">WorldBox</a></p>
-      <div id="guestbook" style="max-width: 600px; margin: 40px auto;">
-  <h2>留言板</h2>
+      <div id="guestbook" class="guestbook-box" style="max-width: 700px; margin: 40px auto;">
+  <h2 style="margin-bottom: 16px;">留言板</h2>
 
-  <div style="margin-bottom: 8px;">
-    <input id="gb-nickname" placeholder="昵称（可留空，默认匿名）"
-           style="width: 100%; padding: 6px;" />
+  <div style="margin-bottom: 10px;">
+    <input
+      id="gb-nickname"
+      type="text"
+      placeholder="昵称（可留空，默认匿名）"
+    />
   </div>
 
-  <div style="margin-bottom: 8px;">
-    <textarea id="gb-content" placeholder="说点什么吧..."
-              rows="3" style="width: 100%; padding: 6px;"></textarea>
+  <div style="margin-bottom: 10px;">
+    <textarea
+      id="gb-content"
+      rows="3"
+      placeholder="说点什么吧..."
+    ></textarea>
   </div>
 
-  <button onclick="gbSendMessage()" style="padding: 6px 12px;">
-    提交留言
-  </button>
+  <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+    <button type="button" onclick="gbSendMessage()">提交留言</button>
+    <div id="gb-status" style="font-size: 13px; color: #888;"></div>
+  </div>
 
-  <div id="gb-status" style="margin-top: 8px; color: #888;"></div>
-
-  <h3 style="margin-top: 20px;">所有留言</h3>
+  <h3 style="margin: 16px 0 8px;">所有留言</h3>
   <div id="gb-list"></div>
 </div>
 
@@ -394,7 +458,7 @@ root@5a5e705cd63b:/workspace/114514# sed -n '240,480p' index.html
   </footer>
 
   <script>
-  const GB_API_BASE = "https://api.vostin.cn";
+ const GB_API_BASE = "https://api.vostin.cn";
 
   function gbEscapeHtml(str) {
     return String(str)
@@ -405,6 +469,8 @@ root@5a5e705cd63b:/workspace/114514# sed -n '240,480p' index.html
 
   function gbLoadMessages() {
     var statusEl = document.getElementById("gb-status");
+    var listEl = document.getElementById("gb-list");
+
     statusEl.textContent = "正在加载留言...";
 
     fetch(GB_API_BASE + "/api/messages")
@@ -412,8 +478,6 @@ root@5a5e705cd63b:/workspace/114514# sed -n '240,480p' index.html
         return res.json();
       })
       .then(function (data) {
-        var listEl = document.getElementById("gb-list");
-
         if (!Array.isArray(data) || data.length === 0) {
           listEl.innerHTML = "<p>还没有留言，快来抢沙发 ~</p>";
           statusEl.textContent = "";
@@ -428,9 +492,11 @@ root@5a5e705cd63b:/workspace/114514# sed -n '240,480p' index.html
             : "";
 
           html +=
-            '<div style="border:1px solid #ddd;padding:8px;margin:6px 0;border-radius:4px;">' +
-              "<div><strong>" + gbEscapeHtml(m.nickname || "匿名") + "</strong>" +
-              ' <small style="color:#888;">' + gbEscapeHtml(timeText) + "</small></div>" +
+            '<div class="gb-message">' +
+              '<div style="margin-bottom:4px;">' +
+                "<strong>" + gbEscapeHtml(m.nickname || "匿名") + "</strong>" +
+                ' <small style="color:#888;">' + gbEscapeHtml(timeText) + "</small>" +
+              "</div>" +
               "<div>" + gbEscapeHtml(m.content || "") + "</div>" +
             "</div>";
         }
@@ -456,6 +522,10 @@ root@5a5e705cd63b:/workspace/114514# sed -n '240,480p' index.html
       alert("内容不能为空");
       return;
     }
+    if (content.length > 300) {
+      alert("内容太长啦（最多 300 字）");
+      return;
+    }
 
     statusEl.textContent = "正在提交...";
 
@@ -474,8 +544,10 @@ root@5a5e705cd63b:/workspace/114514# sed -n '240,480p' index.html
           return;
         }
 
-
         contentInput.value = "";
+        statusEl.textContent = "提交成功";
+        setTimeout(function () { statusEl.textContent = ""; }, 1500);
+
         gbLoadMessages();
       })
       .catch(function (err) {
