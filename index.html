@@ -339,6 +339,40 @@ root@5a5e705cd63b:/workspace/114514# sed -n '240,480p' index.html
       nav {
         flex-direction: column;
       }
+      /* 留言板下方那一行按钮 + 状态 的布局 */
+.gb-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+/* 小屏幕上改成竖直排列，避免挤爆 */
+@media (max-width: 600px) {
+  .gb-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .gb-actions button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .guestbook-box {
+    padding: 18px;
+    margin: 24px 0;
+  }
+
+  .view {
+    padding: 1.25rem 1rem;
+  }
+
+  .content-wrapper {
+    margin: 2rem auto;
+    padding: 0 1rem 1.5rem;
+  }
+}
     }
   </style>
 </head>
@@ -422,39 +456,40 @@ root@5a5e705cd63b:/workspace/114514# sed -n '240,480p' index.html
       </div>
     </div>
 
-    <div class="view" id="contact">
-      <h2>联系方式</h2>
-      <p>📧 Email: WhiteXiaoLing@gmail.com</p>
-      🔗 Discord: <a href="https://discord.gg/jzPsBGmRyk" style="color:#60a5fa">WorldBox</a></p>
-      <div id="guestbook" class="guestbook-box" style="max-width: 700px; margin: 40px auto;">
-  <h2 style="margin-bottom: 16px;">留言板</h2>
+<div class="view" id="contact">
+  <h2>联系方式</h2>
+  <p>📧 Email: WhiteXiaoLing@gmail.com</p >
+  <p>🔗 Discord: <a href=" " style="color:#60a5fa">WorldBox</a ></p >
 
-  <div style="margin-bottom: 10px;">
-    <input
-      id="gb-nickname"
-      type="text"
-      placeholder="昵称（可留空，默认匿名）"
-    />
-  </div>
+  <div id="guestbook" class="guestbook-box" style="max-width: 700px; margin: 40px auto;">
+    <h2 style="margin-bottom: 16px;">留言板</h2>
 
-  <div style="margin-bottom: 10px;">
-    <textarea
-      id="gb-content"
-      rows="3"
-      placeholder="说点什么吧..."
-    ></textarea>
-  </div>
-
-  <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
-    <button type="button" onclick="gbSendMessage()">提交留言</button>
-    <div id="gb-status" style="font-size: 13px; color: #888;"></div>
-  </div>
-
-  <h3 style="margin: 16px 0 8px;">所有留言</h3>
-  <div id="gb-list"></div>
-</div>
-
+    <div style="margin-bottom: 10px;">
+      <input
+        id="gb-nickname"
+        type="text"
+        placeholder="昵称（可留空，默认匿名）"
+      />
     </div>
+
+    <div style="margin-bottom: 10px;">
+      <textarea
+        id="gb-content"
+        rows="3"
+        placeholder="说点什么吧..."
+      ></textarea>
+    </div>
+
+    <!-- 给这行加类名：gb-actions -->
+    <div class="gb-actions">
+      <button type="button" onclick="gbSendMessage()">提交留言</button>
+      <div id="gb-status" style="font-size: 13px; color: #888;"></div>
+    </div>
+
+    <h3 style="margin: 16px 0 8px;">所有留言</h3>
+    <div id="gb-list"></div>
+  </div>
+</div>
   </div>
 
   <footer>
